@@ -24,4 +24,13 @@ class ProductComment extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    protected $fillable = [
+        'product_id',
+        'user_id',
+        'name',
+        'email',
+        'messages',
+        'rating',
+    ];
+
 }

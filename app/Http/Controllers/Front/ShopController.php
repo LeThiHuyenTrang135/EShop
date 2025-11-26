@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Services\Product\ProductService;
 use App\Services\Product\ProductServiceInterface;
@@ -26,11 +28,33 @@ class ShopController extends Controller
         return view('front.shop.show', compact('product'));
     }
 
-    // public function postComment(Request $request)
-    // {
-    //     $this->productCommentService->create($request->all());
 
-    //     return redirect()->back();
-    // }
+    public function postComment(Request $request, $id)
+    {
+        // Lấy dữ liệu hợp lệ, bỏ _token
+        $data = $request->except('_token');
+
+        // Gắn product_id từ URL
+        $data['product_id'] = $id;
+
+        // Nếu user đã login
+        $data['user_id'] = Auth::check() ? Auth::id() : null;
+
+        // Validate form
+        $request->validate([
+            'name'     => 'required',
+            'email'    => 'required|email',
+            'messages' => 'required',
+            'rating' => 'required|integer|min:1|max:5',
+
+        ]);
+
+        // Lưu comment
+        $this->productCommentService->create($data);
+
+        return redirect()->back()->with('success', 'Comment added!');
+    }
+
+
     
 }
