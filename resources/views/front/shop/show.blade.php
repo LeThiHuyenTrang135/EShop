@@ -5,10 +5,10 @@
 
 @section('body')
 
-    <!-- Product Shop Section Begin-->
-     <section class="product-shop spad page-details">
-       <div class="container">
-         <div class="row">
+<!-- Product Shop Section Begin-->
+<section class="product-shop spad page-details">
+    <div class="container">
+        <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                 <div class="filter-widget">
                     <h4 class="fw-title">Categories</h4>
@@ -137,7 +137,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="product-pic-zoom">
-                            <img class="product-big-img" src="front/img/product-single/product-1.jpg" alt="">
+                            <img class="product-big-img" src="front/img/products/{{ $product->productImages[0]->path }}" alt="">
                             <div class="zoom-icon">
                                 <i class="fa fa-search-plus"></i>
                             </div>
@@ -145,10 +145,11 @@
                         </div>
                         <div class="product-thumbs">
                             <div class="product-thumbs-track ps-slider owl-carousel">
-                                <div class="pt active" data-imgbigurl="front/img/product-single/product-1.jpg"><img src="front/img/product-single/product-1.jpg" alt=""></div>
-                                <div class="pt" data-imgbigurl="front/img/product-single/product-2.jpg"><img src="front/img/product-single/product-2.jpg" alt=""></div>
-                                <div class="pt" data-imgbigurl="front/img/product-single/product-3.jpg"><img src="front/img/product-single/product-3.jpg" alt=""></div>
-                                <div class="pt" data-imgbigurl="front/img/product-single/product-4.jpg"><img src="front/img/product-single/product-4.jpg" alt=""></div>
+                                @foreach($product->productImages as $productImage)
+                                <div class="pt active" data-imgbigurl="front/img/products/{{ $productImage->path }}">
+                                    <img src="front/img/products/{{ $productImage->path }}" alt="">
+                                </div>
+                                @endforeach
                             </div>
 
                         </div>
@@ -156,56 +157,54 @@
                     <div class="col-lg-6">
                         <div class="product-details">
                             <div class="pd-title">
-                                <span>oranges</span>
-                                <h3>Pure Pineapple</h3>
+                                <span>{{ $product->tag }}</span>
+                                <h3>{{ $product->name }}</h3>
                                 <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                             </div>
                             <div class="pd-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                                <span>(5)</span>
+
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if($i <=$product->avgRating)
+                                    <i class="fa fa-star"></i>
+                                    @else
+                                    <i class="fa fa-star-half-o"></i>
+                                    @endif
+                                    @endfor
+
+                                    <span>({{ count($product->productComments) }})</span>
                             </div>
                             <div class="pd-desc">
-                                <p>Lorem ipsum dolor sit amet, consectetur ing elit, sed do eiusmod tempor sum dolor sit amet, consectetur adipisicing elit, sed do mod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <h4>$495.00 <span>$520.00</span></h4>
+                                <p>{{ $product->content }}</p>
+
+                                @if($product->discount != null)
+                                    <h4>{{ $product->discount }}<span>{{ $product->price }}</span></h4>
+                                @else
+                                    <h4>{{ $product->discount }}</h4>
+                                @endif
                             </div>
                             <div class="pd-color">
                                 <h6>Color</h6>
                                 <div class="pd-color-choose">
-                                    <div class="cc-item">
-                                        <input type="radio" id="cc-black">
-                                        <label for="cc-black" class="cc-black"></label>
-                                    </div>
-                                    <div class="cc-item">
-                                        <input type="radio" id="cc-yellow">
-                                        <label for="cc-yellow" class="cc-yellow"></label>
-                                    </div>
-                                    <div class="cc-item">
-                                        <input type="radio" id="cc-violet">
-                                        <label for="cc-violet" class="cc-violet"></label>
-                                    </div>
+
+                                    @foreach(array_unique(array_column($product->productDetails->toArray(), 'color')) as $productColor)
+                                        <div class="cc-item">
+                                            <input type="radio" id="cc-{{ $productColor }}">
+                                            <label for="cc-{{ $productColor }}" class="cc-{{ $productColor }}"></label>
+                                        </div>
+                                    @endforeach
+                                    
                                 </div>
                             </div>
                             <div class="pd-size-choose">
-                                <div class="sc-item">
-                                    <input type="radio" id="s-size">
-                                    <label for="s-size">s</label>
-                                </div>
-                                <div class="sc-item">
-                                    <input type="radio" id="m-size">
-                                    <label for="m-size">m</label>
-                                </div>
-                                <div class="sc-item">
-                                    <input type="radio" id="l-size">
-                                    <label for="l-size">l</label>
-                                </div>
-                                <div class="sc-item">
-                                    <input type="radio" id="xl-size">
-                                    <label for="xl-size">XL</label>
-                                </div>
+
+                                @foreach(array_unique(array_column($product->productDetails->toArray(), 'size')) as $productSize)
+                                    <div class="sc-item">
+                                        <input type="radio" id="sm--{{ $productSize }}">
+                                        <label for="sm--{{ $productSize }}">{{ $productSize }}</label>
+                                    </div>
+                                @endforeach
+                                    
+                               
                             </div>
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -214,11 +213,11 @@
                                 <a href="#" class="primary-btn pd-cart">Add To Cart</a>
                             </div>
                             <ul class="pd-tags">
-                                <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>
-                                <li><span>TAGS</span>: Clothing, T-shirt, Woman</li>
+                                <li><span>CATEGORIES</span>: {{ $product->productCategory?->name }}</li>
+                                <li><span>TAGS</span>: {{ $product->tag }}</li>
                             </ul>
                             <div class="pd-share">
-                                <div class="p-code">Sku : 00012</div>
+                                <div class="p-code">Sku : {{ $product->sku }}</div>
                                 <div class="pd-social">
                                     <a href="#"><i class="ti-facebook"></i></a>
                                     <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -233,158 +232,158 @@
                         <ul class="nav" role="tablist">
                             <li><a class="active" href="#tab-1" data-toggle="tab" role="tab">DESCRIPTION</a></li>
                             <li><a href="#tab-2" data-toggle="tab" role="tab">SPECIFICATIONS</a></li>
-                            <li><a  href="#tab-3" data-toggle="tab" role="tab">Customer Reviews (02)</a></li>
+                            <li><a href="#tab-3" data-toggle="tab" role="tab">Customer Reviews (02)</a></li>
                         </ul>
                     </div>
                     <div class="tab-item-content">
                         <div class="tab-content">
                             <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
-                            <div class="product-content">
-                                <div class="row">
-                                <div class="col-lg-7">
-                                    <h5>Introduction</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <h5>Features</h5>
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                <div class="product-content">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <h5>Introduction</h5>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                            <h5>Features</h5>
+                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
 
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <img src="front/img/product-single/tab-desc.jpg" alt="">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-5">
-                                    <img src="front/img/product-single/tab-desc.jpg" alt="">
-                                </div>
-                            </div>
-                            </div>
 
                             </div>
                             <div class="tab-pane fade" id="tab-2" role="tabpanel">
                                 <div class="specification-table">
                                     <table>
-                                    
-                                            <tr>
-                                                <td class="p-catagory">Customer Rating</td>
-                                                <td>
-                                                    <div class="pd-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Price</td>
-                                                <td>
-                                                    <div class="p-price">$495.00</div>  
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Add to cart</td>
-                                                <td>
-                                                    <div class="cart-add">+ add to cart</div>   
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Availability</td>
-                                                <td>
-                                                    <div class="p-stock">22 In Stock</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Weight</td>
-                                                <td>
-                                                    <div class="p-weight">400 g</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Size</td>
-                                                <td>
-                                                    <div class="p-size">Xxl</div>  
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Color</td>
-                                                <td>
-                                                    <span class="cs-black"></span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Sku</td>
-                                                <td>
-                                                    <div class="p-code">00012</div>
-                                                </td>
-                                            </tr>
-                                        
+
+                                        <tr>
+                                            <td class="p-catagory">Customer Rating</td>
+                                            <td>
+                                                <div class="pd-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <span>(5)</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Price</td>
+                                            <td>
+                                                <div class="p-price">$495.00</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Add to cart</td>
+                                            <td>
+                                                <div class="cart-add">+ add to cart</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Availability</td>
+                                            <td>
+                                                <div class="p-stock">22 In Stock</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Weight</td>
+                                            <td>
+                                                <div class="p-weight">400 g</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Size</td>
+                                            <td>
+                                                <div class="p-size">Xxl</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Color</td>
+                                            <td>
+                                                <span class="cs-black"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-catagory">Sku</td>
+                                            <td>
+                                                <div class="p-code">00012</div>
+                                            </td>
+                                        </tr>
+
                                     </table>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-3" role="tabpanel">
                                 <div class="customer-review-option">
                                     <h4>2 Comments</h4>
-                                <div class="comment-option">
-                                    <div class="co-item">
-                                        <div class="avatar-pic">
-                                            <img src="front/img/product-single/avatar-1.png" alt="">
-                                        </div>
-                                        <div class="avatar-text">
-                                            <div class="at-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>    
+                                    <div class="comment-option">
+                                        <div class="co-item">
+                                            <div class="avatar-pic">
+                                                <img src="front/img/product-single/avatar-1.png" alt="">
                                             </div>
-                                            <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
-                                            <div class="at-reply">Nice Product</div>
+                                            <div class="avatar-text">
+                                                <div class="at-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
+                                                <div class="at-reply">Nice Product</div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="co-item">
-                                        <div class="avatar-pic">
-                                            <img src="front/img/product-single/avatar-2.png" alt="">
-                                        </div>
-                                        <div class="avatar-text">
-                                            <div class="at-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>    
+                                        <div class="co-item">
+                                            <div class="avatar-pic">
+                                                <img src="front/img/product-single/avatar-2.png" alt="">
                                             </div>
-                                            <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
-                                            <div class="at-reply">Nice Product</div>
-                                        </div>
-                                    </div>
-                                
-                                </div>
-                                <div class="personal-rating">
-                                    <h6>Your Ratind</h6>
-                                    <div class="rate">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                                <div class="leave-comment">
-                                    <h4>Leave A Comment</h4>
-                                    <form action="#" class="comment-form">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <input type="text" placeholder="Name">
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <input type="text" placeholder="Email">
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <textarea placeholder="Messages"></textarea>
-                                                <button type="submit" class="site-btn">Send message</button>
+                                            <div class="avatar-text">
+                                                <div class="at-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
+                                                <div class="at-reply">Nice Product</div>
                                             </div>
                                         </div>
-                                    </form>
 
-                                </div>
+                                    </div>
+                                    <div class="personal-rating">
+                                        <h6>Your Ratind</h6>
+                                        <div class="rate">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </div>
+                                    <div class="leave-comment">
+                                        <h4>Leave A Comment</h4>
+                                        <form action="#" class="comment-form">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input type="text" placeholder="Name">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input type="text" placeholder="Email">
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <textarea placeholder="Messages"></textarea>
+                                                    <button type="submit" class="site-btn">Send message</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
                                 </div>
 
                             </div>
@@ -395,16 +394,16 @@
 
                 </div>
             </div>
-            </div>
         </div>
-     </section>
-    <!-- Product Shop Section End--> 
+    </div>
+</section>
+<!-- Product Shop Section End-->
 
 
-    <!-- Related Products section (các sp lien quan) Begin-->
-    <div class="related-products spad">
-        <div class="container">
-            <div class="row">
+<!-- Related Products section (các sp lien quan) Begin-->
+<div class="related-products spad">
+    <div class="container">
+        <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
                     <h2>Related Products</h2>
@@ -517,9 +516,9 @@
                 </div>
             </div>
         </div>
-        </div>
-
     </div>
-    <!-- Related Products section (các sp lien quan) End-->
-    
+
+</div>
+<!-- Related Products section (các sp lien quan) End-->
+
 @endsection
