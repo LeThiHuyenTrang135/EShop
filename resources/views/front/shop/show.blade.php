@@ -232,7 +232,7 @@
                         <ul class="nav" role="tablist">
                             <li><a class="active" href="#tab-1" data-toggle="tab" role="tab">DESCRIPTION</a></li>
                             <li><a href="#tab-2" data-toggle="tab" role="tab">SPECIFICATIONS</a></li>
-                            <li><a href="#tab-3" data-toggle="tab" role="tab">Customer Reviews (02)</a></li>
+                            <li><a href="#tab-3" data-toggle="tab" role="tab">Customer Reviews ({{ count($product->productComments) }})</a></li>
                         </ul>
                     </div>
                     <div class="tab-item-content">
