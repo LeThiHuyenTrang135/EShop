@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-abstract class BaseRepositories implements RepositoriesInterface
+abstract class BaseRepository implements RepositoryInterface
 {
     protected $model;
     public function __construct()
@@ -13,11 +13,6 @@ abstract class BaseRepositories implements RepositoriesInterface
     }
     abstract public function getModel();
 
-
-    // public function __construct($model)
-    // {
-    //     $this->model = $model;
-    // }
 
     public function all()
     {

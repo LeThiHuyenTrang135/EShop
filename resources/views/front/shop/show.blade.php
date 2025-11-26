@@ -351,28 +351,43 @@
 
 
                                     </div>
-                                    <div class="personal-rating">
-                                        <h6>Your Ratind</h6>
-                                        <div class="rate">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="leave-comment">
                                         <h4>Leave A Comment</h4>
-                                        <form action="#" class="comment-form">
+                                        <form action="" method="post" class="comment-form">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id ?? null }}" >
+
+
+
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <input type="text" placeholder="Name">
+                                                    <input type="text" placeholder="Name" name="name">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" placeholder="Email">
+                                                    <input type="text" placeholder="Email" name="email">
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <textarea placeholder="Messages"></textarea>
+                                                    <textarea placeholder="Messages" name="messages"></textarea>
+
+                                                    <div class="personal-rating">
+                                                        <h6>Your Rating</h6>
+                                                        <div class="rate">
+                                                            <input type="radio" id="star5" name="rating" value="5" />
+                                                            <label for="star5" title="text">5 stars</label>
+                                                            <input type="radio" id="star4" name="rating" value="4" />
+                                                            <label for="star4" title="text">4 stars</label>
+                                                            <input type="radio" id="star3" name="rating" value="3" />
+                                                            <label for="star3" title="text">3 stars</label>
+                                                            <input type="radio" id="star2" name="rating" value="2" />
+                                                            <label for="star2" title="text">2 stars</label>
+                                                            <input type="radio" id="star1" name="rating" value="1" />
+                                                            <label for="star1" title="text">1 star</label>
+                                                        </div>
+                                                    </div>
+
+
                                                     <button type="submit" class="site-btn">Send message</button>
                                                 </div>
                                             </div>

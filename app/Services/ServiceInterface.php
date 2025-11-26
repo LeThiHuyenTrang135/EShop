@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Service\Product;
+namespace App\Services;
 
-use App\Service\ServiceInterface;
-
-interface ProductServiceInterface extends ServiceInterface
-{
+interface ServiceInterface
+{   
     public function all();
     public function find($id);
     public function create(array $data);
     public function update(array $data, $id);
     public function delete($id);
+
 }

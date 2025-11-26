@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Product;
 
-use App\Repositories\RepositoriesInterface;
 
-interface ProductRepositoryInterface extends RepositoriesInterface
+use App\Repositories\RepositoryInterface;
+
+interface ProductRepositoryInterface extends RepositoryInterface
 {
     // Define repository interface methods here
 }

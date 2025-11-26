@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Service\Product;
+namespace App\Services\Product;
 
 use App\Repositories\Product\ProductRepositoryInterface;
-use App\Service\BaseService;
+use App\Services\Product\ProductServiceInterface;
+use App\Services\BaseService;
 
 class ProductService extends BaseService implements ProductServiceInterface
 {
