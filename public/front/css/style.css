@@ -4313,3 +4313,24 @@ ol {
 	}
 
 }
+
+/* SPECIFICATIONS color dots ONLY */
+.spec-color {
+    display: flex;
+    gap: 10px;
+	justify-content: center;
+}
+
+.spec-color-item {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
+/* dynamic colors */
+.spec-blue { background: blue; }
+.spec-yellow { background: #EEEE21; }
+.spec-violet { background: #8230E3; }
+.spec-green { background: green; }
+.spec-red { background: red; }
+.spec-black { background: black; }

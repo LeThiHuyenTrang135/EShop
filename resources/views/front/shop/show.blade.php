@@ -302,14 +302,16 @@
                                         </tr>
                                         <tr>
                                             <td class="p-catagory">Color</td>
-                                            
                                             <td>
-                                                @foreach (array_unique(array_column($product->productDetails->toArray(),'color')) as $productColor)
-                                                <span class="cc-{{ $productColor }}"></span>
-
-                                                @endforeach
+                                                <div class="spec-color">
+                                                    @foreach (array_unique(array_column($product->productDetails->toArray(), 'color')) as $productColor)
+                                                        <div class="spec-color-item spec-{{ $productColor }}"></div>
+                                                    @endforeach
+                                                </div>
                                             </td>
+
                                         </tr>
+
                                         <tr>
                                             <td class="p-catagory">Sku</td>
                                             <td>
@@ -333,12 +335,12 @@
                                             <div class="avatar-text">
                                                 <div class="at-rating">
                                                     @for($i = 1; $i <= 5; $i++)
-                                                        @if($i <= $productComment->rating)
+                                                        @if($i <=$productComment->rating)
                                                         <i class="fa fa-star"></i>
                                                         @else
                                                         <i class="fa fa-star-o"></i>
                                                         @endif
-                                                    @endfor
+                                                        @endfor
                                                 </div>
                                                 <h5>{{ $productComment->name }}<span>{{ date('M, d, Y', strtotime($productComment->created_at)) }}</span></h5>
                                                 <div class="at-reply">{{ $productComment->messages }}</div>
