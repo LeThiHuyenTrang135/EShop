@@ -91,16 +91,17 @@
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
-                        <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li class="active item" data-tag="*" data-category="women">All</li>
+                        <li class="item" data-tag=".Clothing" data-category="women">Clothings</li>
+                        <li class="item" data-tag=".HandBag" data-category="women">HandBag</li>
+                        <li class="item" data-tag=".Shoes" data-category="women">Shoes</li>
+                        <li class="item" data-tag=".Accessories" data-category="women">Accessories</li>
                     </ul>
                 </div>
-                <div class="product-slider owl-carousel">
+                <div class="product-slider owl-carousel women">
 
                     @foreach ($featureProducts['women'] as $product)
-                    <div class="product-item">
+                    <div class="product-item item {{ $product->tag }}">
                         <div class="pi-pic">
                             <img src="front/img/products/{{ $product->productImages[0]->path }}" alt="">
 
@@ -194,15 +195,16 @@
             <div class="col-lg-8">
                 <div class="filter-control">
                     <ul>
-                        <li class="active">Clothings</li>
-                        <li>HandBag</li>
-                        <li>Shoes</li>
-                        <li>Accessories</li>
+                        <li class="active item" data-tag="*" data-category="men">All</li>
+                        <li class="item" data-tag=".Clothing" data-category="men">Clothings</li>
+                        <li class="item" data-tag=".HandBag" data-category="men">HandBag</li>
+                        <li class="item" data-tag=".Shoes" data-category="men">Shoes</li>
+                        <li class="item" data-tag=".Accessories" data-category="men">Accessories</li>
                     </ul>
                 </div>
-                <div class="product-slider owl-carousel">
+                <div class="product-slider owl-carousel men">
                     @foreach ($featureProducts['men'] as $product)
-                    <div class="product-item">
+                    <div class="product-item item {{ $product->tag }}">
                         <div class="pi-pic">
                             <img src="front/img/products/{{ $product->productImages[0]->path }}" alt="">
 

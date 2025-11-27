@@ -56,7 +56,7 @@
         Product Slider
     --------------------*/
    $(".product-slider").owlCarousel({
-        loop: true,
+        loop: false,
         margin: 25,
         nav: true,
         items: 4,
@@ -246,5 +246,29 @@
 		}
 		$button.parent().find('input').val(newVal);
 	});
+
+  /*-------------------
+		Bo loc san pham ơ trang chu
+	--------------------- */
+
+    const product_men = $(".product-slider.men");
+    const product_women = $(".product-slider.women");
+
+    $('.filter-control').on('click', '.item', function(){
+        const $item = $(this);
+        const filter = $item.data('tag');
+        const category = $item.data('category');
+
+        $item.siblings().removeClass('active');
+        $item.addClass('active');
+
+        if (category === 'men'){
+            product_men.owlcarousel2_filter(filter);
+        }
+
+        if (category === 'women'){
+            product_women.owlcarousel2_filter(filter);
+        }
+    });
 
 })(jQuery);
