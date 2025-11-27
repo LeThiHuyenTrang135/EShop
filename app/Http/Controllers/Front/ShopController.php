@@ -59,9 +59,9 @@ class ShopController extends Controller
     }
     
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->getProductOnIndex();
+        $products = $this->productService->getProductOnIndex($request);
 
         return view('front.shop.index', compact('products'));
     }
