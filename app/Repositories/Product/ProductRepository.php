@@ -43,30 +43,33 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         $perPage = $request->show ?? 3;
         $sortBy = $request->sort_by ?? 'latest';
+        $search = $request->search ?? '';
+
+        $products = $this->model->where('name', 'like', '%' . $search . '%');
 
 
 
         switch ($sortBy){
             case 'latest':
-                $products = $this->model->orderBy('id');
+                $products = $products->orderBy('id');
                 break;
             case 'oldest':
-                $products = $this->model->orderByDesc('id');
+                $products = $products->orderByDesc('id');
                 break;
             case 'name-ascending':
-                $products = $this->model->orderBy('name');
+                $products = $products->orderBy('name');
                 break;
             case 'name-descending':
-                $products = $this->model->orderByDesc('name');
+                $products = $products->orderByDesc('name');
                 break;
             case 'price-ascending':
-                $products = $this->model->orderBy('price');
+                $products = $products->orderBy('price');
                 break;
             case 'price-descending':
-                $products = $this->model->orderByDesc('price');
+                $products = $products->orderByDesc('price');
                 break;
             default:
-                $products = $this->model->orderBy('id');
+                $products = $products->orderBy('id');
 
         }
 
