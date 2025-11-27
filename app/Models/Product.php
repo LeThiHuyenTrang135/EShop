@@ -20,9 +20,9 @@ class Product extends Model
     }
 
     //relation with productCategories
-    public function productCategories()
+    public function productCategory()
     {
-        return $this->hasMany(ProductCategory::class, 'product_category_id', 'id');
+        return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
     }
 
     //relation with orderDetails
