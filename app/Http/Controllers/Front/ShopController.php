@@ -57,7 +57,12 @@ class ShopController extends Controller
 
         return redirect()->back()->with('success', 'Comment added!');
     }
+    
 
+    public function index()
+    {
+        return view('front.shop.index');
+    }
 
     
 }
