@@ -312,69 +312,33 @@
             </div>
         </div>
         <div class="row">
+             @foreach ($blogs as $blog)
             <div class="col-lg-4 col-md-6">
+
+               
                 <div class="single-latest-blog">
-                    <img src="front/img/latest-1.jpg" alt="">
+                    <img src="front/img/blog/{{ $blog->image }}" alt="">
                     <div class="latest-text">
                         <div class="tag-list">
                             <div class="tag-item">
                                 <i class="fa fa-calendar-o"></i>
-                                May 4,2025
+                                {{ date('M d, Y', strtotime($blog->created_at)) }}
                             </div>
                             <div class="tag-item">
                                 <i class="fa fa-comment-o"></i>
-                                5
+                                {{ count($blog->blogComments) }}
                             </div>
                         </div>
                         <a href="#">
-                            <h4>The Best Street Style From London Fashion Week</h4>
+                            <h4>{{ $blog->title }}</h4>
                         </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>{{ $blog->subtitle }}</p>
                     </div>
                 </div>
+                
+                
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="front/img/latest-2.jpg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2025
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>The Best Street Style From London Fashion Week</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="front/img/latest-3.jpg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2025
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>The Best Street Style From London Fashion Week</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="benefit-items">
             <div class="row">
