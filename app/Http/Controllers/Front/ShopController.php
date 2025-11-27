@@ -25,7 +25,10 @@ class ShopController extends Controller
     {
         $product = $this->productService->find($id);
 
-        return view('front.shop.show', compact('product'));
+        $relatedProducts = $this->productService->getRelatedProducts($product);
+
+        return view('front.shop.show', compact('product', 'relatedProducts'));
+
     }
 
 

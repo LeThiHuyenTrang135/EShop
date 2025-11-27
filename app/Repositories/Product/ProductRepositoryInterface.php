@@ -7,5 +7,5 @@ use App\Repositories\RepositoryInterface;
 
 interface ProductRepositoryInterface extends RepositoryInterface
 {
-    // Define repository interface methods here
+        public function getRelatedProducts ($product, $limit = 4);
 }
