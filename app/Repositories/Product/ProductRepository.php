@@ -31,13 +31,20 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     // }
 
     public function getFeaturedProductsByCategory(int $categoryId)
-{
-    return $this->model
-        ->with(['productImages', 'productCategory']) // <<< thêm dòng này
-        ->where('featured', true)
-        ->where('product_category_id', $categoryId)
-        ->get();
-}
+    {
+        return $this->model
+            ->with(['productImages', 'productCategory']) // <<< thêm dòng này
+            ->where('featured', true)
+            ->where('product_category_id', $categoryId)
+            ->get();
+    }
+
+    public function getProductOnIndex()
+    {
+        $products = $this->model->paginate(3);
+
+        return $products;
+    }
 
         
     
