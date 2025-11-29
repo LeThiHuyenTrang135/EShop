@@ -12,7 +12,7 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $primaryKey = 'id';
-    protected $quarded = [];
+    protected $guarded = [];
 
 
     //relation with orderdetails

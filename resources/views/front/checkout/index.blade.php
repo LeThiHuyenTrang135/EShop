@@ -27,8 +27,11 @@
     <!-- Shopping cart section begin-->
      <div class="checkout-section spad">
         <div class="container">
-            <form action="#" class="checkout-form">
+
+            <form action="" method="post" class="checkout-form">
+                @csrf
                 <div class="row">   
+                @if(Cart::count() > 0)
                     <div class="col-lg-6">
                         <div class="checkout-content">
                             <a href="login.html" class="content-btn">Click here to login</a>
@@ -37,40 +40,40 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="fir">First Name<span>*</span></label>
-                                <input type="text" id="fir">
+                                <input type="text" id="fir" name="first_name">
                             </div>
                             <div class="col-lg-6">
                                 <label for="last">Last Name<span>*</span></label>
-                                <input type="text" id="last">
+                                <input type="text" id="last" name="last_name">
                             </div>
                             <div class="col-lg-12">
                                 <label for="cun-name">Company Name</label>
-                                <input type="text" id="cun-name">
+                                <input type="text" id="cun-name" name="company_name">
                             </div>
                             <div class="col-lg-12">
                                 <label for="cun">Country<span>*</span></label>
-                                <input type="text" id="cun">
+                                <input type="text" id="cun" name="country">
                             </div>
                             <div class="col-lg-12">
                                 <label for="street">Street Address<span>*</span></label>
-                                <input type="text" id="street" class="street-first">
-                                <input type="text">
+                                <input type="text" id="street" name="street_address" class="street-first">
+                                
                             </div>
                             <div class="col-lg-6">
                                 <label for="zip">Postcode / ZIP<span>*</span></label>
-                                <input type="text" id="zip">
+                                <input type="text" id="zip" name="postcode_zip">
                             </div>
                             <div class="col-lg-12">
                                 <label for="town">Town / City<span>*</span></label>
-                                <input type="text" id="town">
+                                <input type="text" id="town" name="town_city">
                             </div>
                             <div class="col-lg-6">
                                 <label for="phone">Phone<span>*</span></label>
-                                <input type="text" id="phone">
+                                <input type="text" id="phone" name="phone">
                             </div>
                             <div class="col-lg-12">
                                 <label for="email">Email Address<span>*</span></label>
-                                <input type="text" id="email">
+                                <input type="text" id="email" name="email">
                             </div>
                             <div class="col-lg-12">
                                 <div class="create-item">
@@ -108,15 +111,15 @@
                                 <div class="payment-check">
                                     <div class="pc-item">
                                         <label for="pc-check">
-                                            Check Payment
-                                            <input type="checkbox" id="pc-check">
+                                            Pay later
+                                            <input type="radio" name="payment_type" value="pay_later" id="pc-check" checked>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="pc-item">
                                         <label for="pc-paypal">
-                                            Paypal
-                                            <input type="checkbox" id="pc-paypal">
+                                            Online payment
+                                            <input type="radio" name="payment_type" value="online_payment" id="pc-paypal">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -131,8 +134,14 @@
 
                         </div>
                     </div>
+                @else
+                    <div class="col-lg-12">
+                        <h4>Your cart is empty.</h4>
+                    </div>
+                @endif
                 </div>
             </form>    
+
         </div>
 
      </div>

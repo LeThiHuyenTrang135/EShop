@@ -11,7 +11,7 @@ class OrderDetail extends Model
 
     protected $table = 'order_details';
     protected $primaryKey = 'id';
-    protected $quarded = [];
+    protected $guarded = [];
 
     //relation with order
     public function order()
