@@ -15,6 +15,8 @@
 
     <!-- Css Styles -->
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css"> -->
+
     <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/themify-icons.css" type="text/css">
@@ -340,6 +342,8 @@
     <script src="front/js/jquery.slicknav.js"></script>
     <script src="front/js/owl.carousel.min.js"></script>
     <script src="front/js/owlcarousel2-filter.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
     <script src="front/js/main.js"></script>
 </body>
 

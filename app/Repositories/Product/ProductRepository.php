@@ -7,7 +7,9 @@ use App\Models\ProductCategory;
 use App\Repositories\BaseRepositories;
 use App\Repositories\BaseRepository;
 use Faker\Provider\Base;
-use Symfony\Component\HttpFoundation\Request;
+// use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
+
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {   
@@ -111,6 +113,17 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $brands = $request->brand ?? [];
         $brand_ids = array_keys($brands);
         $products = $brand_ids != null ? $products->whereIn('brand_id', $brand_ids) : $products;
+
+        //Prices:
+        $priceMin = $request->price_min;
+        $priceMax = $request->price_max;
+
+        $priceMin = str_replace('$', '', $priceMin);
+        $priceMax = str_replace('$', '', $priceMax);
+
+        $products = ($priceMin != null && $priceMax != null) ? 
+                    $products->whereBetween('price', [$priceMin, $priceMax]) :
+                    $products;
 
         return $products;
     }

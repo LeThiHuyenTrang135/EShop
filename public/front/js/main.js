@@ -180,21 +180,31 @@
 	--------------------- */
 	var rangeSlider = $(".price-range"),
 		minamount = $("#minamount"),
-		maxamount = $("#maxamount"),
-		minPrice = rangeSlider.data('min'),
-		maxPrice = rangeSlider.data('max');
+		maxamount = $("#maxamount");
+		
+        // Lấy dữ liệu từ data-* attribute
+        let minVal = parseInt(rangeSlider.data("min-value"));
+        let maxVal = parseInt(rangeSlider.data("max-value"));
+
+        let minPrice = parseInt(rangeSlider.data("min"));
+        let maxPrice = parseInt(rangeSlider.data("max"));
+
+        // Nếu NaN → trả về mặc định
+        if (isNaN(minVal)) minVal = minPrice;
+        if (isNaN(maxVal)) maxVal = maxPrice;
+
 	    rangeSlider.slider({
 		range: true,
 		min: minPrice,
         max: maxPrice,
-		values: [minPrice, maxPrice],
+		values: [minVal, maxVal],
 		slide: function (event, ui) {
-			minamount.val('$' + ui.values[0]);
-			maxamount.val('$' + ui.values[1]);
-		}
-	});
-	minamount.val('$' + rangeSlider.slider("values", 0));
-    maxamount.val('$' + rangeSlider.slider("values", 1));
+			minamount.val("$" + ui.values[0]);
+            maxamount.val("$" + ui.values[1]);
+                }
+            });
+        minamount.val("$" + minVal);
+        maxamount.val("$" + maxVal);
 
     /*-------------------
 		Radio Btn
@@ -270,5 +280,7 @@
             product_women.owlcarousel2_filter(filter);
         }
     });
+
+   
 
 })(jQuery);
