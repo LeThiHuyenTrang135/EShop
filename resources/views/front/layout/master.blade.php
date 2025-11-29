@@ -105,14 +105,14 @@
                             <li class="cart-icon">
                                 <a href="./cart">
                                     <i class="icon_bag_alt"></i>
-                                    <span>{{ Cart::count() }}</span>
+                                    <span class="cart-count">{{ Cart::count() }}</span>
                                 </a>
                                 <div class="cart-hover">
                                     <div class="select-items">
                                         <table>
                                             <tbody>
                                                 @foreach (Cart::content() as $cart)
-                                                <tr>
+                                                <tr data-rowId="{{ $cart->rowId }}">
                                                     <td class="si-pic">
                                                         <img style="height: 70px;" src="front/img/products/{{ $cart->options->images }}"> 
                                                     </td>
