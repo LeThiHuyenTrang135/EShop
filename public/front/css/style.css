@@ -4379,3 +4379,12 @@ ol {
     background-color: #d45f5f; /* đỏ nhạt 1 chút */
     transition: all 0.3s ease;
 }
+
+.select-items tbody tr.row-removing,
+.cart-table tbody tr.row-removing {
+    opacity: 0;
+    transform: translateX(20px);
+    background-color: #ffefef;
+    transition: all 0.3s ease;
+}
+

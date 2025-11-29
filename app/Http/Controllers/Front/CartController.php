@@ -67,6 +67,15 @@ class CartController extends Controller
         return back();
     }
    
-  
+   public function destroy()
+    {
+        Cart::destroy();
+
+        $response['count'] = Cart::count();
+        $response['total'] = Cart::total();
+        $response['subtotal'] = Cart::subtotal();
+
+        return $response; // trả JSON cho Ajax
+    }
 
 }

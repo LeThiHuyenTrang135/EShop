@@ -378,3 +378,32 @@ function removeCart(rowId){
         },
     })
 }
+
+
+function destroyCart() {
+    $.ajax({
+        type: "GET",
+        url: "cart/destroy", 
+        success: function (response) {
+
+            // Cập nhật phần cart ở header
+            $('.cart-count').text(response['count']);
+            $('.cart-price').text(response['total']);
+            $('.select-total h5').text(response['total']);
+
+
+            // Hiệu ứng xóa trên trang /cart
+            var cartRows = $('.cart-table tbody tr');
+            cartRows.addClass('row-removing');
+            setTimeout(function () {
+                $('.cart-table tbody').empty();
+            }, 300);
+
+         
+        },
+        error: function (response) {
+            alert('Delete all failed.');
+            console.log(response);
+        }
+    });
+}
