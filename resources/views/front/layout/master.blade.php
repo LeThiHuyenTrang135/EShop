@@ -103,53 +103,47 @@
                                 </a>
                             </li>
                             <li class="cart-icon">
-                                <a href="#">
+                                <a href="./cart">
                                     <i class="icon_bag_alt"></i>
-                                    <span>3</span>
+                                    <span>{{ Cart::count() }}</span>
                                 </a>
                                 <div class="cart-hover">
                                     <div class="select-items">
                                         <table>
                                             <tbody>
+                                                @foreach (Cart::content() as $cart)
                                                 <tr>
-                                                    <td class="si-pic"><img src="front/img/select-product-1.jpg"> </td>
+                                                    <td class="si-pic">
+                                                        <img style="height: 70px;" src="front/img/products/{{ $cart->options->images }}"> 
+                                                    </td>
                                                     <td class="si-text">
                                                         <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
+                                                            <p>${{ $cart->price }} x {{ $cart->qty }}</p>
+                                                            <h6>{{ $cart->name }}</h6>
                                                         </div>
                                                     </td>  
                                                     <td class="si-close">
                                                         <i class="ti-close"></i>
                                                     </td>  
                                                 </tr>
-                                                <tr>
-                                                    <td class="si-pic"><img src="front/img/select-product-2.jpg"> </td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>  
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>  
-                                                </tr>
+                                                @endforeach
+                                                
+                                                
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>$120.00</h5>
+                                        <h5>${{ Cart::total() }}</h5>
                                     </div>
                                     <div class="select-button">
-                                        <a href="shopping-cart.html" class="primary-btn view-card">VIEW CARD</a>
+                                        <a href="./cart" class="primary-btn view-card">VIEW CARD</a>
                                         <a href="check-out.html" class="primary-btn view-card">CHECK OUT</a>
 
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-price">$150.00</li>
+                            <li class="cart-price">${{ Cart::total() }}</li>
                         </ul>
                     </div>
                 </div>
@@ -192,7 +186,7 @@
                         <li><a href="">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="blog-details.html">Blog Details</a></li>
-                                <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                <li><a href="./cart">Shopping Cart</a></li>
                                 <li><a href="check-out.html">Check Out</a></li>
                                 <li><a href="faq.html">Faq</a></li>
                                 <li><a href="register.html">Register</a></li>
