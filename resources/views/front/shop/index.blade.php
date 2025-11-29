@@ -143,20 +143,24 @@
                         <h4 class="fw-title">Size</h4>
                         <div class="fw-size-choose">
                             <div class="sc-item">
-                                <input type="radio" id="s-size">
-                                <label for="s-size">s</label>
+                                <input type="radio" id="s-size" name="size" value="s" onchange="this.form.submit();"
+                                            {{ request('size') == 's' ? 'checked' : '' }}>
+                                <label class="{{ request('size') == 's' ? 'active' : '' }}" for="s-size">s</label>
                             </div>
                             <div class="sc-item">
-                                <input type="radio" id="m-size">
-                                <label for="m-size">m</label>
+                                <input type="radio" id="m-size" name="size" value="m" onchange="this.form.submit();"
+                                            {{ request('size') == 'm' ? 'checked' : '' }}>
+                                <label class="{{ request('size') == 'm' ? 'active' : '' }}" for="m-size">m</label>
                             </div>
                             <div class="sc-item">
-                                <input type="radio" id="l-size">
-                                <label for="l-size">l</label>
+                                <input type="radio" id="l-size" name="size" value="l" onchange="this.form.submit();"
+                                            {{ request('size') == 'l' ? 'checked' : '' }}>
+                                <label class="{{ request('size') == 'l' ? 'active' : '' }}" for="l-size">l</label>
                             </div>
                             <div class="sc-item">
-                                <input type="radio" id="xl-size">
-                                <label for="xl-size">XL</label>
+                                <input type="radio" id="xl-size" name="size" value="xs" onchange="this.form.submit();"
+                                            {{ request('size') == 'xs' ? 'checked' : '' }}>
+                                <label class="{{ request('size') == 'xs' ? 'active' : '' }}" for="xl-size">xs</label>
                             </div>
                         </div>
                     </div>
