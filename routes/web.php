@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\CheckOutController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ShopController;
 use App\Models\Product;
@@ -34,6 +35,11 @@ Route::prefix('cart')->group(function (){
     Route::get('delete', action: [App\Http\Controllers\Front\CartController::class, 'delete']);
     Route::get('destroy', action: [App\Http\Controllers\Front\CartController::class, 'destroy']);
     Route::get('update', action: [App\Http\Controllers\Front\CartController::class, 'update']);
+
+});
+
+Route::prefix('checkout')->group(function (){
+    Route::get('',[App\Http\Controllers\Front\CheckOutController::class,'index']);
 
 });
 
