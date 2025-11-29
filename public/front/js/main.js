@@ -301,22 +301,23 @@ function addCart(productId) {
             if (cartHover_existItem.length){
                 cartHover_existItem.find('.product-selected p').text('$' + response['cart'].price.toFixed(2) + ' x ' + response['cart'].qty);
             }else{
-                var newItem = 
-                    '<tr data-rowId="{' + response['cart'].rowId + '">\n' +
-                    '    <td class="si-pic">\n' +
-                    '        <img style="height: 70px;"\n' +
-                    '        src="front/img/products/' + response['cart'].options.images + '">\n' +
-                    '    </td>\n' +
-                    '    <td class="si-text">\n' +
-                    '        <div class="product-selected">\n' +
-                    '            <p>$' + response['cart'].price.toFixed(2) + ' x ' + response['cart'].qty + '</p>\n' +
-                    '            <h6>' + response['cart'].name + '</h6>\n' +
-                    '        </div>\n' +
-                    '    </td>\n' +
-                    '    <td class="si-close">\n' +
-                    '        <i class="ti-close"></i>\n' +
-                    '    </td>\n' +  
-                    '</tr>';
+               var newItem = 
+                '<tr data-rowId="' + response['cart'].rowId + '">\n' +
+                '    <td class="si-pic">\n' +
+                '        <img style="height: 70px;"\n' +
+                '        src="front/img/products/' + response['cart'].options.images + '">\n' +
+                '    </td>\n' +
+                '    <td class="si-text">\n' +
+                '        <div class="product-selected">\n' +
+                '            <p>$' + response['cart'].price.toFixed(2) + ' x ' + response['cart'].qty + '</p>\n' +
+                '            <h6>' + response['cart'].name + '</h6>\n' +
+                '        </div>\n' +
+                '    </td>\n' +
+                '    <td class="si-close">\n' +
+                '        <i onclick="removeCart(\'' + response['cart'].rowId + '\')" class="ti-close"></i>\n' +
+                '    </td>\n' +  
+                '</tr>';
+
 
                 cartHover_tbody.append(newItem);
             }
@@ -328,6 +329,51 @@ function addCart(productId) {
         error: function(response) {
             //hien thi tbao that bai
             alert('Add failed.')
+            console.log(response);
+        },
+    })
+}
+
+
+function removeCart(rowId){
+    $.ajax({
+        type: "GET",
+        url: "cart/delete",
+        data: {rowId: rowId},
+        success: function(response){
+            //Xu ly phan cart hover (trang master-page)
+            $('.cart-count').text(response['count']);
+            $('.cart-price').text(response['total']);
+            $('.select-total h5').text(response['total']);
+
+            var cartHover_tbody = $('.select-items tbody');
+            var cartHover_existItem = cartHover_tbody.find("tr" + "[data-rowId='" + rowId + "']");
+
+            // ================== HIỆU ỨNG MINI CART ==================
+            cartHover_existItem.addClass('row-removing');
+            setTimeout(function () {
+                cartHover_existItem.remove();
+            }, 300); // 300ms trùng với CSS transition
+            
+
+            // xu ly o trong trang "shop/cart"
+            var cart_tbody = $('.cart-table tbody');
+            var cart_exisItem = cart_tbody.find("tr[data-rowId='" + rowId + "']");
+
+            // ================== HIỆU ỨNG TRANG CART ==================
+            cart_exisItem.addClass('row-removing');
+            setTimeout(function () {
+                cart_exisItem.remove();
+            }, 300);
+            
+
+            //hien thi tbao thanh cong
+            alert('Delete successful:\nProducts: ' + response['cart'].name)
+            console.log(response);
+        },
+        error: function(response) {
+            //hien thi tbao that bai
+            alert('Delete failed.')
             console.log(response);
         },
     })

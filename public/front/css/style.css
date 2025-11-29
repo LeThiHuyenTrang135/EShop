@@ -4370,3 +4370,12 @@ ol {
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+/* Hiệu ứng khi xóa sản phẩm trong mini cart + cart page */
+.select-items tbody tr.row-removing,
+.cart-table tbody tr.row-removing {
+    opacity: 0;
+    transform: translateX(20px);
+    background-color: #d45f5f; /* đỏ nhạt 1 chút */
+    transition: all 0.3s ease;
+}
