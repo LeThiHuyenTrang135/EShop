@@ -255,6 +255,10 @@
 			}
 		}
 		$button.parent().find('input').val(newVal);
+
+        //update cart
+        var rowId = $button.parent().find('input').data('rowid');
+        updateCart(rowId, newVal);
 	});
 
   /*-------------------
@@ -291,6 +295,7 @@ function addCart(productId) {
         url: "cart/add",
         data: {productId: productId},
         success: function(response){
+            
             $('.cart-count').text(response['count']);
             $('.cart-price').text(response['total']);
             $('.select-total h5').text(response['total']);
@@ -384,6 +389,7 @@ function destroyCart() {
     $.ajax({
         type: "GET",
         url: "cart/destroy", 
+        data:{},
         success: function (response) {
 
             // Cập nhật phần cart ở header
@@ -407,3 +413,93 @@ function destroyCart() {
         }
     });
 }
+
+// function updateCart(rowId, qty) {
+//     $.ajax({
+//         type: "GET",
+//         url: "cart/update",
+//         data: { rowId: rowId, qty: qty },
+//         // dataType: "json",
+//         success: function (response) {
+
+//             // ----- UPDATE HEADER -----
+//             $('.cart-count').text(response['count']);
+//             $('.cart-price').text('$' + response['total']);
+//             $('.select-total h5').text('$' + response['total']);
+
+//             var cartHover_tbody = $('.select-items tbody');
+//             var cartHover_existItem = cartHover_tbody.find("tr" + "[data-rowId='" + rowId + "']");
+
+//             if(qty === 0){
+//                 cartHover_existItem.remove();
+//             } else {
+//                 cartHover_existItem.find('.product-selected p').text('$' + response['cart'].price.toFixed(2) + ' x ' + response['cart'].qty);
+//             }
+
+//             //Xu ly o trang shop/cart
+//             var cart_tbody = $('.cart-table tbody');
+//             var cart_existItem = cart_tbody.find("tr" + "[data-rowId='" + rowId + "']");
+//             if(qty === 0){
+//                 cart_existItem.remove();
+//             } else {
+//                 cart_existItem.find('.total-price').text('$' + (response['cart'].price + response['cart'].qty).toFixed(2));
+//             }
+
+//             $('.subtotal span').text('$' + response['subtotal'])
+//             $('.cart-total span').text('$' + response['total'])
+            
+//             console.log(response);
+//         },
+//         error: function (err) {
+//             console.log(err);
+//             alert("Update failed");
+//         }
+//     });
+// }
+
+function updateCart(rowId, qty) {
+    $.ajax({
+        type: "GET",
+        url: "cart/update",
+        data: { rowId: rowId, qty: qty },
+        dataType: "json",
+        success: function (response) {
+
+            // header mini cart
+            $('.cart-count').text(response.count);
+            $('.cart-price').text('$' + response.total);
+            $('.select-total h5').text('$' + response.total);
+
+            // mini cart update
+            var cartHover = $('.select-items tbody')
+                .find("tr[data-rowId='" + rowId + "']");
+
+            if (qty === 0) {
+                cartHover.remove();
+            } else {
+                cartHover.find('.product-selected p')
+                    .text('$' + response.cart.price.toFixed(2) + ' x ' + response.cart.qty);
+            }
+
+            // cart page update
+            var cartRow = $('.cart-table tbody')
+                .find("tr[data-rowId='" + rowId + "']");
+
+            if (qty === 0) {
+                cartRow.remove();
+            } else {
+                let totalLine = response.cart.price * response.cart.qty;
+                cartRow.find('.total-price').text('$' + totalLine.toFixed(2));
+            }
+
+            // subtotal + total
+            $('.subtotal span').text('$' + response.subtotal);
+            $('.cart-total span').text('$' + response.total);
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Update failed");
+        }
+    });
+}
+

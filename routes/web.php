@@ -33,6 +33,7 @@ Route::prefix('cart')->group(function (){
     Route::get('/', [App\Http\Controllers\Front\CartController::class, 'index']);
     Route::get('delete', action: [App\Http\Controllers\Front\CartController::class, 'delete']);
     Route::get('destroy', action: [App\Http\Controllers\Front\CartController::class, 'destroy']);
+    Route::get('update', action: [App\Http\Controllers\Front\CartController::class, 'update']);
 
 });
 
