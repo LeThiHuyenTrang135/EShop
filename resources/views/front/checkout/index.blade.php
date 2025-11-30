@@ -28,9 +28,10 @@
      <div class="checkout-section spad">
         <div class="container">
 
-            <form action="{{ route('momo_payment') }}" method="POST" class="checkout-form">
+            <form action="/checkout" method="POST" class="checkout-form">
                 @csrf
-                <input type="hidden" name="amount" value="{{ $total }}">
+                <input type="hidden" name="amount" id="amount_input" value="{{ intval($total * 25000) }}">
+
 
                 <div class="row">   
                 @if(Cart::count() > 0)
@@ -109,6 +110,7 @@
 
                                     <li class="fw-normal">Subtotal<span>${{ $subtotal }}</span></li>
                                     <li class="total-price">Total <span>${{ $total }}</span></li>
+
                                 </ul>
                                 <div class="payment-check">
                                     <div class="pc-item">
@@ -126,14 +128,12 @@
                                         </label>
                                     </div>
                                     <div class="pc-item">
-    <label for="pc-momo-atm">
-        Thanh toán ATM qua MoMo
-        <input type="radio" name="payment_type" value="momo_atm" id="pc-momo-atm">
-        <span class="checkmark"></span>
-    </label>
-</div>
-
-
+                                        <label for="pc-momo-atm">
+                                            Thanh toán ATM qua MoMo
+                                            <input type="radio" name="payment_type" value="momo_payment" id="pc-momo-atm">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
 
 
                                 </div>
@@ -141,7 +141,6 @@
                                     <button type="submit" class="site-btn place-btn">Place Order</button>
                                 </div>
                                   
-
                             </div>
 
                         </div>
