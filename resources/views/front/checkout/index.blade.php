@@ -28,8 +28,10 @@
      <div class="checkout-section spad">
         <div class="container">
 
-            <form action="" method="post" class="checkout-form">
+            <form action="{{ route('momo_payment') }}" method="POST" class="checkout-form">
                 @csrf
+                <input type="hidden" name="amount" value="{{ $total }}">
+
                 <div class="row">   
                 @if(Cart::count() > 0)
                     <div class="col-lg-6">
@@ -123,6 +125,16 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
+                                    <div class="pc-item">
+    <label for="pc-momo-atm">
+        Thanh toán ATM qua MoMo
+        <input type="radio" name="payment_type" value="momo_atm" id="pc-momo-atm">
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+
+
 
                                 </div>
                                 <div class="order-btn">

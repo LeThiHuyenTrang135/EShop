@@ -503,3 +503,23 @@ function updateCart(rowId, qty) {
     });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const btn = document.querySelector(".place-btn");
+    const form = document.querySelector("form.checkout-form");
+
+    btn.addEventListener("click", function () {
+
+        let payment = document.querySelector("input[name='payment_type']:checked").value;
+
+        if (payment === 'momo_atm') {
+            // Gửi sang route thanh toán MOMO ATM
+            form.action = "/momo_payment";
+            form.method = "POST"; // BẮT BUỘC
+        } else {
+            // return về checkout/addOrder như bình thường
+            form.action = "/checkout";
+            form.method = "POST";
+        }
+    });
+});
