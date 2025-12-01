@@ -47,6 +47,6 @@ Route::prefix('checkout')->group(function (){
 
 
 Route::get('/checkout/momo', [App\Http\Controllers\Front\CheckOutController::class, 'momoPayment'])->name('momo_payment');
-Route::get('/momo/return', [App\Http\Controllers\Front\CheckOutController::class, 'momoReturn']);
+Route::get('/momo/result', [App\Http\Controllers\Front\CheckOutController::class, 'result']);
     
 
