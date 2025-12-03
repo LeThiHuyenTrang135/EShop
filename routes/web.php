@@ -54,6 +54,8 @@ Route::prefix('account')->group(function (){
     Route::get('login', [App\Http\Controllers\Front\AccountController::class, 'login']);
     Route::post('login', [App\Http\Controllers\Front\AccountController::class, 'checkLogin']);
     Route::get('logout', [App\Http\Controllers\Front\AccountController::class, 'logout']);
+    Route::get('register', [App\Http\Controllers\Front\AccountController::class, 'register']);
+    Route::post('register', [App\Http\Controllers\Front\AccountController::class, 'postRegister']);
 
 
 });

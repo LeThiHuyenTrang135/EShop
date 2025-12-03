@@ -1,12 +1,13 @@
 @extends('front.layout.master')
 
-@section('title', 'Login')
+@section('title', 'Register')
 
 
 @section('body')
 
 
-    <!--Thân -->
+
+    <!-- -->
     <!-- Breadcrumb section begin-->
     <div class="breadcrumb-section">
         <div class="container">
@@ -14,33 +15,36 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text"> <!--phan duong dan trang-->
                         <a href="index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>Login</span>
+                        <span>Register</span>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- Breadcrumb section end-->
 
-    <!-- Login Section Begin-->
-     <div class="login-section spad">
+
+    <!-- Register Section Begin-->
+     <div class="register-login-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
-                    <div class="login-form">
-                        <h2>Login</h2>
+                    <div class="register-form">
+                        <h2>Register</h2>
 
                         @if(session('notification'))
-                            <div class="alert alert-warning" role="alert">
+                            <div class="alert alert-warning" role="alert" >
                                 {{ session('notification') }}
                             </div>
                         @endif
 
 
-
                         <form action="" method="post">
                             @csrf
+                            <div class="group-input">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" name="name">
+                            </div>
                             <div class="group-input">
                                 <label for="email">Email address *</label>
                                 <input type="email" id="email" name="email">
@@ -49,26 +53,21 @@
                                 <label for="pass">Password *</label>
                                 <input type="password" id="pass" name="password">
                             </div>
-                            <div class="group-input gi-check">
-                                <div class="gi-more">
-                                    <label for="save-pass">
-                                        Save Password
-                                        <input type="checkbox" id="save-pass" name="remember">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <a href="#" class="forget-pass">Forget your Password</a>
-                                </div>
+                            <div class="group-input">
+                                <label for="con-pass">Confirm Password *</label>
+                                <input type="password" id="con-pass" name="password_confirmation">
                             </div>
-                            <button type="submit" class="site-btn login-btn">Login</button>
+                            <button type="submit" class="site-btn register-btn">REGISTER</button>
                         </form>
                         <div class="switch-login">
-                            <a href="./account/register" class="or-login">Or Create An Account</a>
+                            <a href="./account/login" class="or-login">Or Login</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-    <!-- Login Section End-->
-
+     </div>
+    <!-- Register Section End-->
 @endsection
+
+
