@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Services\Order\OrderServiceInterface;
 use App\Services\User\UserServiceInterface;
+use App\Utilities\Constant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
     private $userService;
+    private $orderService;
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(UserServiceInterface $userService,
+                                OrderServiceInterface $orderService)
     {
         $this->userService = $userService;
+        $this->orderService = $orderService;
     }
     public function login()
     {
@@ -41,7 +46,7 @@ class AccountController extends Controller
     {
         Auth::logout();
 
-        return back();
+         return redirect('/');
     }
 
      public function Register()
@@ -60,11 +65,19 @@ class AccountController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'level' => 2,
+            'level' => Constant::user_level_client,
         ];
 
         $this->userService->create($data);
 
         return redirect('account/login')->with('notification', 'Register Success Please login');
+    }
+
+    public function myOrderIndex()
+    {
+
+        $orders = $this->orderService->getOrderByUserId(Auth::id());
+
+        return view('front.account.my-order.index', compact('orders'));
     }
 }

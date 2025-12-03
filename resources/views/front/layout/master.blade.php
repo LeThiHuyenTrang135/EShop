@@ -201,7 +201,8 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="blog-details.html">Blog Details</a></li>
+                            <li><a href="./account/my-order">My Order</a></li>    
+                            <li><a href="blog-details.html">Blog Details</a></li>
                                 <li><a href="./cart">Shopping Cart</a></li>
                                 <li><a href="./checkout">Check Out</a></li>
                                 <li><a href="faq.html">Faq</a></li>

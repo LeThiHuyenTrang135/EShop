@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Log;
 
 use App\Services\Order\OrderServiceInterface;
 use App\Services\OrderDetail\OrderDetailServiceInterface;
+use App\Utilities\Constant;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class CheckOutController extends Controller
@@ -44,6 +46,7 @@ class CheckOutController extends Controller
         // 1) TẠO ĐƠN HÀNG (orders) — bảng orders KHÔNG có cột amount
         // ======================================================================
         $orderData = [
+            
             'first_name'     => $request->first_name,
             'last_name'      => $request->last_name,
             'company_name'   => $request->company_name,
@@ -54,6 +57,10 @@ class CheckOutController extends Controller
             'phone'          => $request->phone,
             'email'          => $request->email,
             'payment_type'   => $request->payment_type,
+            'status'         => Constant::order_status_ReceiveOrders,
+
+
+
         ];
 
         $order = $this->orderService->create($orderData);

@@ -26,7 +26,18 @@ class DatabaseSeeder extends Seeder
                 'avatar' => null,
                 'level' => 2,
                 'description' => null,
+
+                'company_name' => 'Trang',
+                'country' => 'Viet Nam',
+                'street_address' => '48 CAO THANG, HAI CHAU, DA NANG',
+                'postcode_zip' => '55000',
+                'town_city' => 'Da Nang',
+                'phone' => '12312312',
             ],
+        ]);
+        
+        DB::table('users')->insert([
+            
             [
                 'id' => 2,
                 'name' => 'admin',
