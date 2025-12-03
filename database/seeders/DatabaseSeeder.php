@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'id' => 1,
-                'name' => 'CodeLean',
-                'email' => 'CodeLean@gmail.com',
+                'name' => 'Trang',
+                'email' => 'demo@gmail.com',
                 'password' => Hash::make('123456'),
                 'avatar' => null,
-                'level' => 0,
+                'level' => 2,
                 'description' => null,
             ],
             [

@@ -50,3 +50,10 @@ Route::get('/checkout/momo', [App\Http\Controllers\Front\CheckOutController::cla
 Route::get('/momo/result', [App\Http\Controllers\Front\CheckOutController::class, 'result']);
     
 
+Route::prefix('account')->group(function (){
+    Route::get('login', [App\Http\Controllers\Front\AccountController::class, 'login']);
+    Route::post('login', [App\Http\Controllers\Front\AccountController::class, 'checkLogin']);
+    Route::get('logout', [App\Http\Controllers\Front\AccountController::class, 'logout']);
+
+
+});
