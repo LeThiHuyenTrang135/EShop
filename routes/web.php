@@ -69,5 +69,6 @@ Route::prefix('account')->group(function (){
 
 Route::prefix('admin')->group(function (){
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
+    // Route::resource('create', App\Http\Controllers\Admin\UserController::class);
        
 });

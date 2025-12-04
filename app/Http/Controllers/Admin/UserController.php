@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\User\UserServiceInterface;
+use App\Utilities\Common;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -24,7 +25,7 @@ class UserController extends Controller
 
         $users = $this->userService->all();
 
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', data: compact('users'));
     }
 
     /**
@@ -32,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user.create');
     }
 
     /**
@@ -40,7 +41,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->get('password') != $request->get('password_confirmation')){
+            return back()->with('notification', 'ERROR: Confirmation password does not match');
+        }
+
+        $data = $request->all();
+        $data['password'] = bcrypt($request->get('password'));
+
+
+        //Xu ly file:
+        if($request->hasFile('image')){
+            $data['avatar'] = Common::uploadFile($request->file('image'), 'front/img/user');
+        }
+
+        $user = $this->userService->create($data);
+
+        return redirect('admin/user/' . $user->id);
     }
 
     /**
