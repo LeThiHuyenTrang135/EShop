@@ -39,8 +39,8 @@
 
                         <tbody>
 
-                        {{-- 🔥 Nếu chưa đăng nhập --}}
-                        @guest
+                            {{-- 🔥 Nếu chưa đăng nhập --}}
+                            @guest
                             <tr>
                                 <td colspan="5" class="text-center py-4">
                                     <h5 style="color:red;">Bạn phải đăng nhập để xem đơn hàng</h5>
@@ -49,61 +49,64 @@
                                     </a>
                                 </td>
                             </tr>
-                        @endguest
+                            @endguest
 
-                        {{-- 🔥 Nếu đã đăng nhập --}}
-                        @auth
+                            {{-- 🔥 Nếu đã đăng nhập --}}
+                            @auth
 
                             {{-- Nếu không có đơn hàng --}}
                             @if ($orders->isEmpty())
-                                <tr>
-                                    <td colspan="5" class="text-center py-4">
-                                        Bạn chưa có đơn hàng nào.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="5" class="text-center py-4">
+                                    Bạn chưa có đơn hàng nào.
+                                </td>
+                            </tr>
 
                             {{-- Nếu có đơn hàng --}}
                             @else
-                                @foreach ($orders as $order)
+                            @foreach ($orders as $order)
 
-                                    @php
-                                        $detail = $order->orderDetails->first();
-                                        $image  = $detail ? $detail->productImages->first() : null;
-                                        $total  = $order->orderDetails->sum('total');
-                                    @endphp
+                            @php
+                            $detail = $order->orderDetails->first();
+                            $image = $detail && $detail->product && $detail->product->productImages->first()
+                                    ? $detail->product->productImages->first()
+                                    : null;
 
-                                    <tr>
-                                        <td class="cart-pic first-row">
-                                            <img style="height: 100px; padding-left: 70px;"
-                                                 src="{{ $image ? asset('front/img/products/' . $image->path) : asset('front/img/no-image.png') }}"
-                                                 alt="">
-                                        </td>
+                            $total = $order->orderDetails->sum('total');
+                            @endphp
 
-                                        <td class="first-row">{{ $order->id }}</td>
+                            <tr>
+                                <td class="cart-pic first-row">
+                                    <img style="height: 100px; padding-left: 70px;"
+                                        src="{{ $image ? asset('front/img/products/' . $image->path) : asset('front/img/no-image.png') }}"
+                                        alt="">
+                                </td>
 
-                                        <td class="cart-title first-row" style="padding-left: 180px;">
-                                            <h5>
-                                                {{ $detail ? $detail->product->name : 'No product' }}
+                                <td class="first-row">{{ $order->id }}</td>
 
-                                                @if ($order->orderDetails->count() > 1)
-                                                    (and {{ $order->orderDetails->count() - 1 }} other products)
-                                                @endif
-                                            </h5>
-                                        </td>
+                                <td class="cart-title first-row" style="padding-left: 180px;">
+                                    <h5>
+                                        {{ $detail ? $detail->product->name : 'No product' }}
 
-                                        <td class="total-price first-row">${{ number_format($total, 2) }}</td>
+                                        @if ($order->orderDetails->count() > 1)
+                                        (and {{ $order->orderDetails->count() - 1 }} other products)
+                                        @endif
+                                    </h5>
+                                </td>
 
-                                        <td class="first-row">
-                                            <a href="/account/my-order/{{ $order->id }}" class="btn">
-                                                Details
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <td class="total-price first-row">${{ number_format($total, 2) }}</td>
 
-                                @endforeach
+                                <td class="first-row">
+                                    <a href="/account/my-order/{{ $order->id }}" class="btn">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
+
+                            @endforeach
                             @endif
 
-                        @endauth
+                            @endauth
 
                         </tbody>
                     </table>

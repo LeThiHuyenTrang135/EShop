@@ -58,6 +58,7 @@ class CheckOutController extends Controller
             'email'          => $request->email,
             'payment_type'   => $request->payment_type,
             'status'         => Constant::order_status_ReceiveOrders,
+    'user_id' => Auth::id(),
 
 
 
