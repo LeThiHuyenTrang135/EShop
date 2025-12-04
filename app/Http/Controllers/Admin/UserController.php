@@ -4,16 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\User\UserServiceInterface;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    private $userService;
+
+    public function __construct(UserServiceInterface $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.user.index');
+
+        $users = $this->userService->all();
+
+        return view('admin.user.index', compact('users'));
     }
 
     /**
