@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Route;
 
+//front
 Route::get('/', [App\Http\Controllers\Front\HomeController::class, 'index'] );
 
 
@@ -62,4 +63,11 @@ Route::prefix('account')->group(function (){
         Route::get('{id}', [App\Http\Controllers\Front\AccountController::class, 'myOrderShow']);
 
     });    
+});
+
+//Dashboard (Admin)
+
+Route::prefix('admin')->group(function (){
+    Route::resource('user', App\Http\Controllers\Admin\UserController::class);
+       
 });
